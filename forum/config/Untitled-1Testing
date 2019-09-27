@@ -1,0 +1,26 @@
+
+        // return view('post')->with($post);
+
+        // $comments = new Comment;
+        // $user->comments->create()
+        // $comments->content=$request->input('content');
+
+        $comment->where('user_id',auth()->user()->id)->create([
+            'content' => $request->content,
+            'post_id' => $post
+        ]);
+
+
+
+
+
+
+        $post->user_id=auth()->user()->id;
+    // $post=new Post;
+    $post->create([
+        'title'=>$request->input('title'),
+        'body' =>$request->input('body'),
+        'user_id'=>auth()->user()->id,
+        'cover_image'=>$fileNameToStore
+    ]);
+   

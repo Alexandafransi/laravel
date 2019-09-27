@@ -1,0 +1,175 @@
+---------------------------laravel verification---------------------------------------------------
+	https://codebriefly.com/custom-user-email-verification-activation-laravel/#Send_Verification_Email_to_Registered_User_Email
+
+**************************************end of link*******************************************************************************************************************
+
+
+
+---------------------------------ERR0R WITH A SOLUTION BELLOW------------------------------------------
+
+			Migration table created successfully.
+Migrating: 2014_10_12_000000_create_users_table
+
+   Illuminate\Database\QueryException  : SQLSTATE[42000]: Syntax error or access violation: 1071 Specified key was too long; max key length is 767 bytes (SQL: alter table `users` add unique `users_email_unique`(`email`))
+
+  at /home/patawan/laravel-project/ModelsDb/vendor/laravel/framework/src/Illuminate/Database/Connection.php:664
+    660|         // If an exception occurs when attempting to run a query, we'll format the error
+    661|         // message to include the bindings with SQL, which will make this exception a
+    662|         // lot more helpful to the developer instead of just the database's errors.
+    663|         catch (Exception $e) {
+  > 664|             throw new QueryException(
+    665|                 $query, $this->prepareBindings($bindings), $e
+    666|             );
+    667|         }
+    668| 
+
+  Exception trace:
+
+  1   PDOException::("SQLSTATE[42000]: Syntax error or access violation: 1071 Specified key was too long; max key length is 767 bytes")
+      /home/patawan/laravel-project/ModelsDb/vendor/laravel/framework/src/Illuminate/Database/Connection.php:458
+
+  2   PDOStatement::execute()
+      /home/patawan/laravel-project/ModelsDb/vendor/laravel/framework/src/Illuminate/Database/Connection.php:458
+
+  Please use the argument -v to see more details.
+
+*******************SOLUTION************************************
+
+	'charset' => 'utf8mb4',
+	'collation' => 'utf8mb4_unicode_ci',
+	TO
+
+	'charset' => 'utf8',
+	'collation' => 'utf8_unicode_ci',	
+
+
+-------------------------------------------to add another field in the form and to make changes to the database,the link as showned bellow----------------------------------------------------
+
+https://crazytechspirit.wordpress.com/2017/12/02/adding-custom-field-to-existing-registration-user-table-without-deleting-stored-data-laravel/
+
+
+
+Begin by updating the users table to include a gender field without affecting already registered values in the database:
+
+$ php artisan make:migration add_gender_field_to_users_table
+
+
+
+
+
+Open the newly created migration file from [database/migrations/]and modify the up method to look like this:
+
+Schema::table('users', function(Blueprint $table)
+ {
+ $table->string('gender');
+ });
+Modify the down method to look like this:
+
+Schema::table('users', function(Blueprint $table)
+ {
+ $table->dropColumn('gender');
+ });
+
+
+after that run migration
+
+$ php artisan migrate
+*****************************************************end of added link****************************************************************************************************************************************
+
+
+--------------------------------------------------------FOR ADDING EDITOR IN THE INPUT BOX SHOWNED BELOW-----------------------------------------------------------------------------------------------
+
+CKEditor Package
+Note
+This is NOT the official CKEDITOR package.
+
+CKEDITOR officially has its own composer package since 2014. Instead of using this package, we recommend you follow the official CKEditor installation instructions with package managers
+
+Installation
+Set up package
+composer require unisharp/laravel-ckeditor
+Add ServiceProvider
+Edit config/app.php, add the following file to Application Service Providers section.
+
+Unisharp\Ckeditor\ServiceProvider::class,
+Publish the resources
+php artisan vendor:publish --tag=ckeditor
+Usage
+Default way (initiate by name or id) :
+
+    <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
+    <script>
+        CKEDITOR.replace( 'article-ckeditor' );
+    </script>
+Or if you want to initiate by jQuery selector :
+
+    <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
+    <script src="/vendor/unisharp/laravel-ckeditor/adapters/jquery.js"></script>
+    <script>
+        $('textarea').ckeditor();
+        // $('.textarea').ckeditor(); // if class is prefered.
+    </script>
+
+
+*************************************************************END OF EDITOR******************************************************************************************************************************
+
+
+
+
+-------------------------------------------LINK BELOW IS FOR PREVENTING TURN BACK TO THE LOGIN AFTER LOGIOUT-------------------------------------------------------------------------
+https://laravelcode.com/post/laravel54-prevent-browsers-back-button-login-after-logout
+
+https://itsolutionstuff.com/post/laravel-5-how-to-prevent-browser-back-button-after-user-logoutexample.html
+
+
+
+
+*******************************************END OF LINK**************************************
+
+
+--------------------------------------------------------------------------------------errow---------------------------------------------------------------------------
+"Connection could not be established with host smtp.mailtrap.io [Connection timed out #110]"
+
+	SOLUTION
+MAIL_DRIVER=smtp
+MAIL_HOST=smtp.mailtrap.io
+MAIL_PORT=25
+MAIL_USERNAME=XXXXXddda513d4
+MAIL_PASSWORD=da084XXXXXXbbe
+MAIL_ENCRYPTION=
+
+
+OR
+
+MAIL_DRIVER=smtp
+MAIL_HOST=smtp.mailtrap.io
+MAIL_PORT=465
+MAIL_USERNAME=xxx
+MAIL_PASSWORD=yyy
+
+************************************************************End of connection errror**************************************************************************************************************
+
+
+
+
+
+
+
+
+----------------------------------------------------------laravel on github-----------------------------------------------------------------------------------------------------------------------
+
+1,install composer----composer install
+
+2,php artisan key:generate
+3,php artisan cache:clear && php artisan config:clear
+4,cp .env.example .env
+
+--------------------------------------------------------------error bellow-------------------------
+
+Argument 1 passed to App\Http\Controllers\Auth\RegisterController::registered() must be an instance of App\Http\Controllers\Auth\Request, instance of Illuminate\Http\Request given, called in /home/patawan/laravel-project/forum/vendor/laravel/framework/src/Illuminate/Foundation/Auth/RegistersUsers.php on line 37
+
+------solution bellow----------------------------
+
+use Illuminate\Http\Request;
+*****************************end of this errror********************************
+
